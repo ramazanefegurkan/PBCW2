@@ -1,0 +1,6 @@
+@PBCW2.Api_HostAddress = http://localhost:5197
+
+GET {{PBCW2.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
