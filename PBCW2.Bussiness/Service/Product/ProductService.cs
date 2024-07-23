@@ -58,11 +58,7 @@ namespace PBCW2.Bussiness.Service
         public async Task<ApiResponse<ProductResponse>> Add(ProductRequest product)
         {
             // Validate the product using FluentValidation
-            ValidationResult validationResult = _productValidator.Validate(product);
-            if (!validationResult.IsValid)
-            {
-                throw new BadRequestException(validationResult.ToString("~"));
-            }
+            _productValidator.ValidateAndThrow(product);
 
             var mapped = _mapper.Map<Product>(product);
             await _unitOfWork.ProductRepository.Insert(mapped);
@@ -74,11 +70,7 @@ namespace PBCW2.Bussiness.Service
         public async Task<ApiResponse<bool>> Update(long id,ProductRequest updatedProduct)
         {
             // Validate the updated product using FluentValidation
-            ValidationResult validationResult = _productValidator.Validate(updatedProduct);
-            if (!validationResult.IsValid)
-            {
-                throw new BadRequestException(validationResult.ToString("~"));
-            }
+            _productValidator.ValidateAndThrow(updatedProduct);
 
             // Find the product by ID
             var product = await _unitOfWork.ProductRepository.GetById(id);

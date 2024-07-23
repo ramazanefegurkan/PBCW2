@@ -1,4 +1,5 @@
-﻿using PBCW2.Bussiness.Exceptions;
+﻿using FluentValidation;
+using PBCW2.Bussiness.Exceptions;
 using System.Text.Json;
 
 namespace PBCW2.Api.Middleware
@@ -40,6 +41,10 @@ namespace PBCW2.Api.Middleware
                 case BadRequestException _:
                     statusCode = StatusCodes.Status400BadRequest;
                     message = ex.Message;
+                    break;
+                case ValidationException _:
+                    statusCode = StatusCodes.Status400BadRequest;
+                    message =  ex.Message;
                     break;
                 default:
                     statusCode = StatusCodes.Status500InternalServerError;
